@@ -1,0 +1,331 @@
+package Bestbuy.Bestbuy_project;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chromium.ChromiumDriver;
+
+
+public class BestBuy 
+
+{
+	public static <JavascriptExecutor> void main (String[] args) throws MalformedURLException, IOException, InterruptedException
+	{	
+		
+	//navigate to the Best Buy e-commerce website (https://www.bestbuy.com/).
+	
+		System.setProperty("WebDriver.Chrome.driver","/Applications/chromedriver_mac64/chromedriver\n");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.bestbuy.com/");
+		
+		
+	// code to validate if the given URL Link is broken.
+		
+		HttpURLConnection Validurl = (HttpURLConnection) new URL("https://www.bestbuy.com").openConnection();
+		Validurl.connect();
+		
+		if (Validurl.getResponseCode() == 200)
+		{
+			System.out.println("URL is valid");
+		}	
+		else 
+		{
+			System.out.println("URL is invalid");
+				
+		}
+		
+		
+	//signup and login functionality
+		   
+        //open home page with US link
+       driver.findElement(By.xpath("//img[@alt='United States']")).click();
+//        
+      // sign in 
+     
+     driver.findElement(By.xpath("//span[@class='v-p-right-xxs line-clamp']")).click();
+//        //time out 
+//      
+       Thread.sleep(5000);
+        driver.findElement(By.xpath("//a[normalize-space()='Create Account']")).click();
+        Thread.sleep(5000);
+      //a[normalize-space()='Create Account']
+        //first name
+        driver.findElement(By.xpath("//input[@id='firstName']")).sendKeys("SUTHAMATHAN");
+        //lastname
+        driver.findElement(By.xpath("//input[@id='lastName']")).sendKeys("S");
+        //email
+        driver.findElement(By.id("email")).sendKeys("shanmugam005@gmail.com");
+        //showpassword
+        driver.findElement(By.xpath("//span[@class='c-toggle-slider c-toggle-round']")).click();
+        //password
+        driver.findElement(By.xpath("//input[@id='fld-p1']")).sendKeys("suthan@1234");
+        //confirm password
+        driver.findElement(By.xpath("//input[@id='reenterPassword']")).sendKeys("suthan@1234");
+        //mobilenumber
+        driver.findElement(By.xpath("//input[@id='phone']")).sendKeys("7339664298");
+        //account recovery
+        driver.findElement(By.xpath("//input[@id='is-recovery-phone']")).click();
+        //create account
+        driver.findElement(By.xpath("//button[normalize-space()='Create an Account']")).click();
+        
+      //for their security reasons they are not allowing us to creat account through chrome driver 
+        //so i already created account in my chrome browser logging in in next step
+        Thread.sleep(5000);
+        String Error = driver.findElement(By.xpath("//div[@class='c-alert-content rounded-r-100 flex-fill v-bg-pure-white p-200 pl-none']//div//div[1]")).getText();
+        
+        System.out.println("Create Account showing error message =>" + Error);
+        
+        // return to the page 
+        //login 
+        driver.findElement(By.xpath("//a[normalize-space()='Return to previous page']")).click();
+        Thread.sleep(5000);
+        driver.findElement(By.xpath("//span[@class='v-p-right-xxs line-clamp']")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//a[normalize-space()='Sign In']")).click();
+        //sign in page 
+        driver.findElement(By.xpath("//input[@id='fld-e']")).sendKeys("shanmugam005@gmail.com");
+        //show password 
+        driver.findElement(By.xpath("//span[@class='c-toggle-slider c-toggle-round']")).click();
+        //password
+        driver.findElement(By.xpath("//input[@id='fld-p1']")).sendKeys("suthan@1234");
+        //sign in 
+        driver.findElement(By.xpath("//button[normalize-space()='Sign In']")).click();
+        
+        // return page 
+        Thread.sleep(5000);
+        driver.findElement(By.xpath("//a[normalize-space()='Return to previous page']")).click();
+      //  String page_title = driver.getTitle();
+        //System.out.println(page_title);
+//        
+        
+        //ALL MENU
+        //tmenu>deals>top deals
+        driver.findElement(By.xpath("//button[normalize-space()='Menu']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//button[normalize-space()='Deals']")).click();
+        Thread.sleep(3000);
+     
+        driver.findElement(By.xpath("//a[@data-lid='ubr_dls_td_topdeals']")).click();
+        Thread.sleep(3000);
+       
+        String page_title = driver.getTitle();
+        System.out.println(page_title);
+        
+       
+       //menu>support>visitour support center 
+        driver.findElement(By.xpath("//button[normalize-space()='Menu']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//button[normalize-space()='Support & Services']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//a[@data-lid='ubr_svc_help']")).click();
+        Thread.sleep(3000);
+        String support_title = driver.getTitle();
+       System.out.println(support_title);
+//        
+//        //menu>brands>apple
+        driver.findElement(By.xpath("//button[normalize-space()='Menu']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//button[normalize-space()='Brands']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//a[normalize-space()='Apple']")).click();
+        Thread.sleep(3000);
+        
+       
+        String brand_title = driver.getTitle();
+        System.out.println(brand_title);
+        
+        //menu>bapplicances>kitchen
+        driver.findElement(By.xpath("//button[normalize-space()='Menu']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//button[normalize-space()='Appliances']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//button[normalize-space()='Major Kitchen Appliances']")).click();
+        Thread.sleep(3000);
+        
+        
+        driver.findElement(By.xpath("//a[normalize-space()='Appliance Sale Event']")).click();
+        Thread.sleep(3000);
+        
+       
+        String applicances_title = driver.getTitle();
+        System.out.println(applicances_title);
+        
+        
+        //menu>tv
+        driver.findElement(By.xpath("//button[normalize-space()='Menu']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//button[normalize-space()='TV & Home Theater']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//button[normalize-space()='TVs by Size']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//a[normalize-space()='Top TV Deals']")).click();
+        Thread.sleep(3000);
+        
+       
+        String tv_title = driver.getTitle();
+        System.out.println(tv_title);
+        
+        
+//      //menu>laptops
+        driver.findElement(By.xpath("//button[normalize-space()='Menu']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//button[normalize-space()='Computers & Tablets']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//button[normalize-space()='Laptops & Desktops']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//a[normalize-space()='Laptops']")).click();
+        Thread.sleep(3000);
+        
+       
+        String laptop_title = driver.getTitle();
+        System.out.println(laptop_title);
+        
+        //menu>cellphone
+        driver.findElement(By.xpath("//button[normalize-space()='Menu']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//button[normalize-space()='Cell Phones']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//a[normalize-space()='Unlocked Phones']")).click();
+        Thread.sleep(3000);
+      
+        
+       String cellphone_title = driver.getTitle();
+        System.out.println(cellphone_title);
+     
+     
+     // bootom linls
+     
+     driver.findElement(By.xpath("//a[normalize-space()='Check Order Status']")).click();
+     Thread.sleep(3000);
+     driver.findElement(By.xpath("//a[normalize-space()='Return to previous page']")).click();
+     Thread.sleep(3000);
+     driver.findElement(By.xpath("//a[normalize-space()='Shipping, Delivery & Pickup']")).click();
+     Thread.sleep(3000);
+     driver.findElement(By.xpath("//a[normalize-space()='Shipping, Delivery & Pickup']")).click();
+     Thread.sleep(3000);
+     driver.findElement(By.xpath("//a[@data-lid='ft_op_price_match_guarantee']")).click();
+     Thread.sleep(3000);
+     driver.findElement(By.xpath("//a[normalize-space()='Product Recalls']")).click();
+     Thread.sleep(3000);
+     driver.findElement(By.xpath("//a[normalize-space()='Trade-In Program']")).click();
+     Thread.sleep(3000);
+   
+  
+
+       
+        // search and add to cart
+        driver.findElement(By.xpath("//input[@id='gh-search-input']")).sendKeys("headphones wireless");
+        Thread.sleep(5000);
+        driver.findElement(By.xpath("//span[@class='header-search-icon']//*[name()='svg']")).click();
+        Thread.sleep(5000);
+        driver.findElement(By.xpath("//span[contains(text(),'Sony - WH-CH520 Wireless Headphone with Microphone')]")).click();
+        Thread.sleep(5000);
+         driver.findElement(By.xpath("//button[normalize-space()='Add to Cart']")).click();
+        Thread.sleep(7000);
+        driver.findElement(By.cssSelector(".c-button.c-button-primary.c-button-md.c-button-block.c-button-icon.c-button-icon-leading.add-to-cart-button")).click();
+        Thread.sleep(5000);
+        driver.findElement(By.xpath("//button[normalize-space()='Continue shopping']")).click();
+        Thread.sleep(5000);
+       
+        
+        //code to select and add an item from a menu shop by department
+        driver.findElement(By.xpath("//button[normalize-space()='Menu']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//button[normalize-space()='Cell Phones']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//a[normalize-space()='Unlocked Phones']")).click();
+        Thread.sleep(3000);
+        
+        driver.findElement(By.xpath("//a[normalize-space()='Apple']")).click();
+        Thread.sleep(9000);
+  
+      //code to select from certain brand 
+        driver.findElement(By.xpath("//button[normalize-space()='Menu']")).click();
+      Thread.sleep(3000);
+      
+      driver.findElement(By.xpath("//button[normalize-space()='Brands']")).click();
+      Thread.sleep(3000);
+      
+      driver.findElement(By.xpath("//a[normalize-space()='Samsung']")).click();
+      Thread.sleep(5000);
+        
+      driver.findElement(By.xpath("//a[@class='jump-link'][normalize-space()='Watches and Buds']")).click();
+      Thread.sleep(3000);
+      
+      driver.findElement(By.xpath("//a[normalize-space()='Learn About Galaxy Watch6 Series']")).click();
+      Thread.sleep(5000)
+      ;
+      driver.findElement(By.xpath("//a[normalize-space()='Galaxy Watch6 Classic']")).click();
+      Thread.sleep(5000);
+      
+      driver.findElement(By.xpath("//button[normalize-space()='Add to Cart']")).click();
+      Thread.sleep(9000);
+    
+    
+      
+      
+      //go to cart 
+      driver.findElement(By.xpath("//button[normalize-space()='Add to Cart']")).click();
+      Thread.sleep(9000);
+    
+      driver.findElement(By.xpath("//a[@class='c-button-link go-to-cart']")).click();
+      Thread.sleep(11000);
+      
+      //checkout
+      driver.findElement(By.xpath("//button[normalize-space()='Checkout']")).click();
+      Thread.sleep(11000);
+      
+      driver.findElement(By.xpath("//button[normalize-space()='Continue as Guest']")).click();
+      Thread.sleep(7000);
+      
+      driver.findElement(By.xpath("//input[@id='user.emailAddress']")).sendKeys("shanmugam005@gmail.com");
+      
+      driver.findElement(By.xpath("//input[@id='user.phone']")).sendKeys("7339664298");
+      
+      driver.findElement(By.xpath("//button[@class='btn btn-lg btn-block btn-secondary']")).click();
+      Thread.sleep(3000);
+      
+      driver.findElement(By.xpath("//span[normalize-space()='Return to Cart']")).click();
+      Thread.sleep(3000);
+      
+      String expectedConfirmationMessage = "Your order has been placed successfully!";
+      WebElement confirmationMessageElement = driver.findElement(By.xpath("//div[@class='confirmation-message']"));
+
+      // Verify if the actual message matches the expected message
+      String actualConfirmationMessage = confirmationMessageElement.getText();
+      if (actualConfirmationMessage.contains(expectedConfirmationMessage)) {
+          System.out.println("Order placed successfully. Confirmation message is as expected.");
+      } else {
+          System.out.println("Failed to place the order or confirmation message does not match the expected.");
+      }
+	}
+	
+	
+	
+	
+}
